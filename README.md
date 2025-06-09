@@ -128,6 +128,68 @@
 > Grad-CAM을 통해 딥러닝 모델이 실제 질환 관련 영역에 주목했는지를 검증할 수 있었으며,  
 > 모델 해석 가능성과 임상적 활용 가능성을 높이는 데 기여하였습니다.
 
+## 📊 실험 결과
+
+### 🔧 학습 세팅
+- **프레임워크**: TensorFlow
+- **모델**: ResNet-18 (from scratch)
+- **Optimizer**: Adam
+- **Learning Rate**: 0.01
+- **Scheduler**: Cosine Annealing (40 Epochs)
+- **Loss Function**: Cross Entropy Loss
+- **Metric**: Accuracy
+
+### 📈 학습 정확도 및 Confusion Matrix
+
+<img src="https://github.com/user-attachments/assets/9ddaa13a-819d-4a4f-b5f5-805fd0df3650" width="420"/>
+<img src="https://github.com/user-attachments/assets/31369d64-9559-427d-aa04-9e48823375e1" width="320"/>
+
+- 최종 테스트 정확도 (**Accuracy**)는 **69.68%** 기록
+- Confusion Matrix를 통해 클래스별 예측 정확도 분포 확인 가능
+- 모델 학습은 점진적으로 안정되었고, 클래스 간 구분 성능도 고르게 향상됨
+
+---
+
+### 📌 기존 연구와의 비교
+
+| 학습 방법            | 데이터 수 | AUC     | Accuracy |
+|---------------------|-----------|---------|----------|
+| Honggu Kang et al. [6] | 10,000    | **0.8955** | N/A      |
+| Sequential (Baseline)  | 2,202     | N/A     | 54.5%    |
+| **ResNet-18 (Ours)**   | 2,202     | N/A     | **69.68%** |
+
+> 본 연구는 AUC 기반 성능을 직접 비교하기는 어렵지만, 소량의 학습 데이터에서도 신뢰성 있는 정확도를 달성하였음.
+
+---
+
+## 🔬 Grad-CAM 시각화 결과
+
+- Grad-CAM을 통해 **모델이 실제 질환 분류 시 주목한 영역**을 시각적으로 확인
+- 주요 병변 부위인 **시신경 유두, 망막 중심부 등**에 집중되어 있는 heatmap 확인
+- 모델의 판단 기준이 임상 지식과 일치함을 확인 → **설명 가능성 및 신뢰성 향상**
+
+---
+
+## ✅ 결론
+
+- 본 연구는 광각 안저 이미지를 활용하여 **다중 안질환 분류 모델**을 구축함
+- 전처리 없이도 시신경 유두, 망막혈관 등 중요한 구조를 활용할 수 있었음
+- Grad-CAM을 통해 모델이 **임상적으로 유의미한 영역**을 기반으로 판단함을 확인
+- 향후에는 다음을 통해 성능 향상이 기대됨:
+  - 명시적인 임상 구조 강조 전처리
+  - 사전학습(pretrained) 모델 도입
+  - 외부 데이터셋 확장
+
+---
+
+## 📚 참고문헌
+
+[1] J. Chen et al., *Global impact of population aging on vision loss prevalence*, Global Transitions, 2024  
+[2] 한국망막학회, https://www.retina.or.kr  
+[3] 질병관리청, https://www.kdca.go.kr  
+[4] R. Selvaraju et al., *Grad-CAM*, ICCV, 2017  
+[5] AI Hub, https://www.aihub.or.kr  
+[6] K. He et al., *Deep Residual Learning*, CVPR, 2016
 
 
 
