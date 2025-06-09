@@ -1,6 +1,6 @@
 # 👁️ 광각 안저 영상 기반 안질환 다중 분류 및 Grad-CAM 시각화  
 **Wide-field Fundus Imaging Eye Disease Multiclassification and Grad-CAM Visualization**
-
+> ⚠️ 안심존에서는 외부 API, 프레임워크 가중치 다운로드 불가 → Pretrained 사용 제한
 ---
 
 ## 📌 프로젝트 개요
@@ -99,6 +99,34 @@
 
 > 🎯 의료 영상의 신뢰성과 정합성 확보를 위해, **클린 데이터 기반 정직한 학습 전략**을 채택했습니다.
 
+## 🧠 모델 구성 및 학습 전략
+
+본 연구의 전체 분류 파이프라인은 아래와 같습니다.
+
+<img src="https://github.com/user-attachments/assets/8726b352-13a6-489c-9dac-05faf19cbc40" width="600"/>
+
+- **Baseline 모델**: 가벼운 Sequential 구조 CNN
+- **본 모델**: ResNet-18 기반 분류기  
+- 사전학습(pretrained) 모델 사용은 계획되었으나, **안심존 보안 환경으로 인해 외부 가중치 불가**
+- 따라서 **모델을 처음부터 구성하여 학습(from scratch)**
+- 모든 모델은 동일한 하이퍼파라미터로 학습하여 비교의 공정성 확보
+
+
+---
+
+## 🔍 Grad-CAM 시각화
+
+모델이 안저 영상 내 어떤 부분을 기준으로 판단했는지 시각적으로 확인하기 위해  
+**Grad-CAM (Gradient-weighted Class Activation Mapping)** 기법을 사용했습니다.
+
+- **적용 대상**: 가장 높은 분류 정확도를 보인 모델
+- **Grad-CAM 특징**:
+  - 기존 CAM은 GAP(Gobal Average Pooling) 이후 구조에 한정됨
+  - **Grad-CAM은 Conv Layer의 Gradient를 기반**으로 Heatmap 생성
+  - 다양한 구조에서 활용 가능하며, 임상의가 직관적으로 결과를 해석할 수 있게 도움
+
+> Grad-CAM을 통해 딥러닝 모델이 실제 질환 관련 영역에 주목했는지를 검증할 수 있었으며,  
+> 모델 해석 가능성과 임상적 활용 가능성을 높이는 데 기여하였습니다.
 
 
 
